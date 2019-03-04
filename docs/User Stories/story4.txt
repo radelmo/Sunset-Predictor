@@ -1,0 +1,3 @@
+4: VIEWING OTHER USERS’ SUNSET/SUNRISE PICTURES/REVIEWS-
+The user can search a particular location for pictures that other users have posted of sunrises/sunsets there. The posts can be ordered depending on number of likes (highest liked first) or time posted (most recent first). The user has the option to “like” each post. 
+
