@@ -1,3 +1,8 @@
 3: POSTING A SUNSET/RISE PICTURE AND RATING-
-Once the user has found a sunset, they will have the ability to rate the sunset 1-5 stars and write a review for it (not required to rate). They can also upload a photo of the sunset with the review. User reviews will be attached to their profile so they can recall where their favorite places were. These reviews can be made public or private. Each post will show the poster’s name/username, where they took the photo (will have to be specified by the user), and how many likes other users have given the post (see story #4).
+Once the user has found a sunset, they will have the ability to rate the sunset 1-5 stars
+and write a review for it (not required to rate). They can also upload a photo of the
+sunset with the review. User reviews will be attached to their profile so they can recall
+where their favorite places were. These reviews can be made public or private. Each post
+will show the poster’s name/username, where they took the photo (will have to be specified
+by the user), and how many likes other users have given the post (see story #4).
 
