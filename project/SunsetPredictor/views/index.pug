@@ -1,0 +1,20 @@
+extends layout
+
+block content
+  h1= title
+  br
+  p Enter a location to see the predicted quality of the next sunrise/sunset:
+  br
+
+  body
+    form(action='/', method='POST')
+      p
+        | latitude:
+        input(type='text', name='latitude', value='')
+        |          longitude:
+        input(type='text', name='longitude', value='')
+        br
+      input(type='submit', value='Submit')
+    br
+    h2= latitude
+    h2= longitude
