@@ -1,20 +1,18 @@
 extends layout
 
 block content
-  h1= title
+  h1 Prediction Form:
   br
   p Enter a location to see the predicted quality of the next sunrise/sunset:
   br
 
   body
-    form(action='/', method='POST')
+    form(action='/predict', method='POST')
       p
         | latitude:
-        input(type='text', name='latitude', value='')
+        input(type='text', name='lat', value='')
         |          longitude:
-        input(type='text', name='longitude', value='')
-        br
+        input(type='text', name='long', value='')
+      br
       input(type='submit', value='Submit')
     br
-    h2= latitude
-    h2= longitude

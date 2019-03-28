@@ -3,9 +3,9 @@ var router = express.Router();
 //var request = require(request);
 var SunsetWx = require('node-sunsetwx');
 
-/* GET home page. */
+/* GET home page. (called by default) */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Prediction Form' });
+  res.render('index', {});
 
   sunburstLogin();
 
@@ -41,6 +41,11 @@ function sunburstLogin() {
   */
 
 };
+
+/* post prediction result page (called by submitting the form)*/
+router.post('/predict', function (req, res, next) {
+  res.render('predictionView', {latitude: req.body.lat, longitude: req.body.long});
+});
 
 
 

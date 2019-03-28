@@ -1,0 +1,10 @@
+extends layout
+
+block content
+    h1 Prediction for #{latitude}, #{longitude}
+    br
+    body
+        h2= latitude
+        h2= longitude
+        br
+        a(class='button' href='/') Back
