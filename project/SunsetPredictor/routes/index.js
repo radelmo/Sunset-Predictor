@@ -4,6 +4,8 @@ var router = express.Router();
 var SunsetWx = require('node-sunsetwx');
 const request = require("request");
 
+var config = require('./config');
+
 
 
 
@@ -54,7 +56,7 @@ router.post('/predict', function (req, res, next) {
         { input: req.body.location, //whatever was typed into the input form
           inputtype: 'textquery',
           fields: 'formatted_address,name,rating,opening_hours,geometry',
-          key: 'KEY' },
+          key: config.gmapsKey },
     headers:
         { 'Postman-Token': '4a6773b8-b2b2-4278-b59b-65a3528bc9db',
           'cache-control': 'no-cache' } };
