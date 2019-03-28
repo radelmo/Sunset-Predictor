@@ -1,5 +1,5 @@
 
 module.exports = { gmapsKey: "f-f",
-                   sunsetEmail: "emffff@bu.edu",
+                   sunsetEmail: "emfffff@bu.edu",
                    sunsetPw: "pw"};
 
