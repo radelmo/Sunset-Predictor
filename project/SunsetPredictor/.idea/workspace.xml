@@ -44,7 +44,7 @@
         <entry file="file://$PROJECT_DIR$/routes/config.js">
           <provider selected="true" editor-type-id="text-editor">
             <state>
-              <caret column="51" lean-forward="true" selection-start-column="51" selection-end-column="51" />
+              <caret column="70" selection-start-column="70" selection-end-column="70" />
             </state>
           </provider>
         </entry>
@@ -176,12 +176,12 @@
       <workItem from="1553730198757" duration="8085000" />
       <workItem from="1553784789177" duration="767000" />
       <workItem from="1553785653060" duration="7021000" />
-      <workItem from="1553807604807" duration="2666000" />
+      <workItem from="1553807604807" duration="2727000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25423000" />
+    <option name="totallyTimeSpent" value="25484000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -276,7 +276,7 @@
     <entry file="file://$PROJECT_DIR$/routes/config.js">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="51" lean-forward="true" selection-start-column="51" selection-end-column="51" />
+          <caret column="70" selection-start-column="70" selection-end-column="70" />
         </state>
       </provider>
     </entry>
