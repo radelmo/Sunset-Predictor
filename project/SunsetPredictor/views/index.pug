@@ -9,10 +9,8 @@ block content
   body
     form(action='/predict', method='POST')
       p
-        | latitude:
-        input(type='text', name='lat', value='')
-        |          longitude:
-        input(type='text', name='long', value='')
+        | Location:
+        input#loc(type='text', name='location', value='Boston')
       br
       input(type='submit', value='Submit')
     br
