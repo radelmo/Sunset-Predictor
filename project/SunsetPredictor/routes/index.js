@@ -13,7 +13,7 @@ const callback = (err, res) => console.log("Error: " + err + "Result " + res);
 
 /* GET home page. (called by default) */
 router.get('/', function(req, res, next) {
-  var query = sunburstQuery("-40", "40");
+  //var query = sunburstQuery("-40", "40");
 
   //Maps api call
 
@@ -51,7 +51,7 @@ router.post('/predict', function (req, res, next) {
   var options = { method: 'GET',
     url: 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json',
     qs:
-        { input: "boston",
+        { input: req.body.location, //whatever was typed into the input form
           inputtype: 'textquery',
           fields: 'formatted_address,name,rating,opening_hours,geometry',
           key: 'KEY' },
@@ -60,10 +60,24 @@ router.post('/predict', function (req, res, next) {
           'cache-control': 'no-cache' } };
 
   request(options, function (error, response, body) {
-    if (error) throw new Error(error);
-
+    if (error) { //there was an error with the API call
+      throw new Error(error);
+    }
+    //there was no error with the API call
+    var obj = JSON.parse(body); //parsed the json response
     console.log(body);
-    res.render('predictionView', {place: body});
+    console.log(obj);
+    if(obj.status === "ZERO_RESULTS"){
+      //the API call did not return any results
+      res.render('errorView', {place: req.body.location});
+    }
+    else {
+      //the API call successfully returned a result
+      var formattedPlace = obj.candidates[0].formatted_address;
+      var locationObj = obj.candidates[0].geometry.location;
+
+      res.render('predictionView', {place: formattedPlace, latitude: locationObj.lat, longitude: locationObj.lng});
+    }
   });
 });
 
