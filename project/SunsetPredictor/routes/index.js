@@ -7,6 +7,8 @@ var http = require("http");
 var util = require('util');
 var exec = require('child_process').exec;
 
+var config = require('./config');
+
 
 
 /* GET home page. (called by default) */
@@ -30,8 +32,8 @@ router.post('/predict', function (req, res, next) {
           input: req.body.location, //whatever was typed into the input form
           inputtype: 'textquery',
           fields: 'formatted_address,name,rating,opening_hours,geometry',
-          key: gmapsKey
-        },
+          key: config.gmapsKey },
+
     headers:
         {
           'Postman-Token': '4a6773b8-b2b2-4278-b59b-65a3528bc9db',
@@ -56,7 +58,7 @@ router.post('/predict', function (req, res, next) {
       var locationObj = obj.candidates[0].geometry.location;
 
       //LOGIN TO SUNBURST API AND RETRIEVE TEMPORARY ACCESS TOKEN IN ORDER TO MAKE A PREDICTION (predict called within login)
-      sunburstLogin("", "", locationObj.lat, locationObj.lng, formattedPlace, res);
+      sunburstLogin(config.sbUsername, config.sbPassword, locationObj.lat, locationObj.lng, formattedPlace, res);
 
     }
 
