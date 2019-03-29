@@ -1,63 +1,43 @@
 
 var express = require('express');
 var router = express.Router();
-var SunsetWx = require('node-sunsetwx');
+//var SunsetWx = require('node-sunsetwx');
 const request = require("request");
+var http = require("http");
+var util = require('util');
+var exec = require('child_process').exec;
 
 
-
-
-
-
-const callback = (err, res) => console.log("Error: " + err + "Result " + res);
 
 /* GET home page. (called by default) */
 router.get('/', function(req, res, next) {
-  //var query = sunburstQuery("-40", "40");
-
-  //Maps api call
-
 
   res.render('index', {});
 });
 
 
 
-
-function sunburstQuery(lat, long) {
-
-  var sunsetwx = new SunsetWx({
-    email: 'EMAIL',
-    password: 'PW'
-  });
-  //console.log("valueOfSunset");
-  //console.log(sunsetwx.valueOf());
-
-
-  var qual = sunsetwx.quality({
-    coords: '-77.331536,43.271152',
-    type: 'sunset'
-  }, callback)
-
-
-
-};
-
-
 /* post prediction result page (called by submitting the form)*/
 router.post('/predict', function (req, res, next) {
 
+  //REQUEST TO GOOGLE API TO TURN PLACE INTO COORDINATES
   var request = require("request");
-  var options = { method: 'GET',
+  var options = {
+    method: 'GET',
     url: 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json',
     qs:
-        { input: req.body.location, //whatever was typed into the input form
+        {
+          input: req.body.location, //whatever was typed into the input form
           inputtype: 'textquery',
           fields: 'formatted_address,name,rating,opening_hours,geometry',
-          key: 'KEY' },
+          key: gmapsKey
+        },
     headers:
-        { 'Postman-Token': '4a6773b8-b2b2-4278-b59b-65a3528bc9db',
-          'cache-control': 'no-cache' } };
+        {
+          'Postman-Token': '4a6773b8-b2b2-4278-b59b-65a3528bc9db',
+          'cache-control': 'no-cache'
+        }
+  };
 
   request(options, function (error, response, body) {
     if (error) { //there was an error with the API call
@@ -65,21 +45,90 @@ router.post('/predict', function (req, res, next) {
     }
     //there was no error with the API call
     var obj = JSON.parse(body); //parsed the json response
-    console.log(body);
-    console.log(obj);
-    if(obj.status === "ZERO_RESULTS"){
+    //console.log(body);
+    //console.log(obj);
+    if (obj.status === "ZERO_RESULTS") {
       //the API call did not return any results
       res.render('errorView', {place: req.body.location});
-    }
-    else {
+    } else {
       //the API call successfully returned a result
       var formattedPlace = obj.candidates[0].formatted_address;
       var locationObj = obj.candidates[0].geometry.location;
 
-      res.render('predictionView', {place: formattedPlace, latitude: locationObj.lat, longitude: locationObj.lng});
+      //LOGIN TO SUNBURST API AND RETRIEVE TEMPORARY ACCESS TOKEN IN ORDER TO MAKE A PREDICTION (predict called within login)
+      sunburstLogin("", "", locationObj.lat, locationObj.lng, formattedPlace, res);
+
     }
+
   });
+
+
 });
+
+//generates temporary access token and obtains a prediction object from prediction function
+function sunburstLogin(username, password, lat, long, place, res){
+  var token;
+  var loginCommand = 'curl -X "POST" "https://sunburst.sunsetwx.com/v1/login" \\\n' +
+      '  -u "' + username + ':' + password + '" \\\n' +
+      '  -d "grant_type=password"\n'
+
+  childLogin = exec(loginCommand, function(error, stdout, stderr) {
+
+    console.log('LOGIN stdout: ' + stdout);
+    console.log('LOGIN stderr: ' + stderr);
+
+    if (error !== null) {
+      throw new Error(error);
+      console.log('exec error: ' + error);
+    }
+    console.log(JSON.parse(stdout));
+    var loginObj = JSON.parse(stdout);
+    token = loginObj.access_token;
+    predictQuality(token, lat, long, place, res);
+  });
+
+
+
+}
+
+//returns a parsed json object of the prediction
+function predictQuality(token, lat, long, place, res){
+  var coordString = lat + "," + long; //abides by sunburst's coordinate format
+
+  var qualityCommand = 'curl "https://sunburst.sunsetwx.com/v1/quality" \
+  -d "geo='+ coordString + '" \
+  -H "Authorization: Bearer ' + token + '" \
+  -G';
+
+  childQuality = exec(qualityCommand, function(error, stdout, stderr){
+
+    console.log('QUALITY stdout: ' + stdout);
+    console.log('QUALITY stderr: ' + stderr);
+
+    if(error !== null)
+    {
+      throw new Error(error);
+      console.log('exec error: ' + error);
+    }
+    console.log("QUALITY OBJECT:");
+    console.log(JSON.parse(stdout));
+    var prediction = JSON.parse(stdout);
+
+    var predictionType = prediction.features[0].properties.type;
+    var rating = prediction.features[0].properties.quality_percent;
+    var quality = prediction.features[0].properties.quality;
+    var temperature = prediction.features[0].properties.temperature;
+
+    console.log(prediction.features[0].properties);
+
+    //RENDER THE RESULT PAGE
+    res.render('predictionView', {place: place, latitude: lat, longitude: long, type: predictionType, rating: rating, quality: quality, temp: temperature});
+
+
+  });
+
+}
+
 
 
 

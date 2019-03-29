@@ -4,7 +4,10 @@ block content
     h1 Prediction for #{place}
     br
     body
-        h2= place
+        h2 #{type} for #{place}
         h3 (#{latitude}, #{longitude})
+        br
+        h3 Rating: #{rating}% (#{quality})
+        h3 Temperature: #{temp} Celsius
         br
         a(class='button' href='/') Back
