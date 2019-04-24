@@ -1,4 +1,6 @@
 routes/config.js
+routes/google-auth.js
+
 # Logs
 logs
 *.log
