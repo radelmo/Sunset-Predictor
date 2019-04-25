@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    h1 Search Sunset and Sunrise Posts
+    br
+    p Enter a location to view some of its sunsets and sunrises:
+    br
+
+    body
+        form(action='/viewPosts', method='POST')
+            p
+                | Location:
+                input#loc(type='text', name='location', value='Boston')
+            br
+            input(type='submit', value='Submit')
+            br
+            br
+        br
+        br
+        a(class='button' href='/') Make a prediction
+        br
+        a(class='button' href='/makeAPost') Make a post
