@@ -6,6 +6,7 @@ const users = {};
 const config = require("./config");
 const app = express();
 const User = require('../models/user-model');
+const mongodb = require("./db");
 
 
 
@@ -31,20 +32,18 @@ passport.use(
         },
         (accessToken, refreshToken, profile,  done)=>{
             //passport callback function
-            console.log(profile);
-            User.findOne()
+            //console.log(profile);
+            console.log("adding user");
+            mongodb.addUser(profile);
+            console.log("user added");
+
             res.redirect("/");
         })
 )
 
 
-
-
-
-
 module.exports = {
     router,
     passport,
-    users
 };
 

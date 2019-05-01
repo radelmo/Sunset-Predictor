@@ -20,14 +20,14 @@ const bodyParser=require('body-parser');
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
+
+
 app.use(cookieSession({
   maxAge: 24 * 60 * 60 *1000,
   keys:[config.mongodb.cookieKey]
 }));
 
-mongoose.connect(config.mongodb.dbURI, {useNewUrlParser: true }, () => {
-  console.log('connected to mongodb');
-});
+
 
 
 //googleAuth.setup(app);
