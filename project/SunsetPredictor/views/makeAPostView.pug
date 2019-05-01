@@ -1,0 +1,33 @@
+extends layout
+
+block content
+    h1 Make a post:
+    br
+    p Take a picture of a sunrise/sunset and share it with other users!
+    br
+    body
+        form(action='/SubmitPost', method='POST')
+            p
+                | Username:
+                input#user(type='text', name='username', value='xyz123')
+            br
+            p
+                | Location:
+                input#loc(type='text', name='location', value='Boston')
+            br
+            p
+                | Date:
+                input#date(type='text', name='date', value='MM/DD/YYYY')
+            br
+            p
+                | Upload Image:
+                input#pic(type='file', name='pic', accept="image/*")
+            br
+            input(type='submit', value='Submit')
+            br
+            br
+        br
+        br
+        a(class='button' href='/searchPosts') Search Posts
+        br
+        a(class='button' href='/') Make a Prediction
