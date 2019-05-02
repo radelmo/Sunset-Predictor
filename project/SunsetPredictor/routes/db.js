@@ -1,27 +1,26 @@
-// database logic goes here
-// const Product = require('../models/movie');
+
 const mongoose = require('mongoose');
 const userModel = require('../models/user-model.js');
 const postModel = require('../models/post-model.js');
 const config = require("./config");
 
 mongoose.connect(config.mongodb.dbURI, {useNewUrlParser: true }, () => {
-  console.log('connected to mongodb');
+  console.log('connected');
 });
 
 function addUser(userObj) {
   console.log("Calling findOne");
-  userModel.findOne({"googleId": userObj.id}, (err, usr) => {
-    if (usr) {
-      console.log("User " + usr + " has returned.")
+  userModel.findOne({"googleId": userObj.id}, (err, user) => {
+    if (user) {
+      console.log("User " + user );
     }
     else {
       console.log("Adding user " + userObj + " to database.")
-      let thisUser = new userModel({
+      let curUser = new userModel({
         userName: userObj.name,
         googleId: userObj.id,
       })
-      thisUser.save((err) => {
+      curUser.save((err) => {
         if (err) throw err
       })
     }
@@ -29,12 +28,11 @@ function addUser(userObj) {
   console.log("found one");
 }
 
-function getUser(usrId, done) {
-  userModel.findOne({"_id": usrId}, (err, usr) => done(err, usr))
+function getUser(userId, done) {
+  userModel.findOne({"_id": userId}, (err, user) => done(err, user))
 }
 
 
-// call this to cache search results
 function addPost(postObj) {
   let post = new posthModel({
     content : postObj.results

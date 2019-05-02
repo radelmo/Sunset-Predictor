@@ -20,7 +20,7 @@ const bodyParser=require('body-parser');
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(bodyParser.json());
 
-
+const mongodb = require("./db");
 
 /*Get the search posts page */
 router.get('/searchPosts', function(req, res, next) {
@@ -275,8 +275,9 @@ router.post('/predict', function (req, res, next) {
           var formattedPlace = obj.candidates[0].formatted_address;
           var locationObj = obj.candidates[0].geometry.location;
 
-          //SEARCH THE DATABASE FOR THE CLOSEST POSTS TO THE LOCATION (maybe only show the closest 10?)
-          res.render('viewPostsView', {place: formattedPlace});
+          //SEARCH THE DATABASE FOR THE CLOSEST POSTS TO THE LOCATION
+          posts =  mongodb.getPost({place: formattedPlace});
+          res.render('viewPostsView', {place: formattedPlace, closestPosts: posts});
         }
 
       });
@@ -331,6 +332,9 @@ router.post('/predict', function (req, res, next) {
           var date = req.body.date;
           var pic = req.body.pic; //how to store the images in correct format?
           console.log(pic);
+
+          //STORE THE NEW POST IN THE DATABASE
+          mongodb.addPost({lat, long, username, date});
 
           //render the success view telling the user their post has been made
           res.render('successPostView', {place: formattedPlace});
