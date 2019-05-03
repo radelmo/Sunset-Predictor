@@ -1,8 +1,6 @@
 2: FIND SUNSET/SUNRISE-
 The user will specify a particular location, and then the app will give a report on the
-sunrise and sunset qualities in that location each day for the next week. Each sunrise
+sunrise and sunset qualities in that location for the day. Each sunrise or
 sunset will have a prediction value (from 0 to 100), which depends on the quality of the
-sunset and the quality of the weather at that time. Additionally, the app will tell the
-user some locations close to the one they specified that are convenient for viewing the
-sunrise/sunset (an open park, field, public observation deck, waterfront, etc.)
+sunset and the quality of the weather at that time.
 
