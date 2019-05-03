@@ -1,7 +1,4 @@
 1: LOGIN/REGISTRATION-
-The login part requires the user to set up his/her account for the first time. Login is only
-required for the first time the user uses the app or when users want to log back again. When the
-user registers, they have to provide the following information: name, username, password. When the
-user logs in, they need to provide only their username and password. The user’s name/username will
+Login requires the user to authenticate with Google. The user’s name/username will
 be included with each sunset post/review they make (see story #3, story #4).
 
