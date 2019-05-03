@@ -1,4 +1,4 @@
 1: LOGIN/REGISTRATION-
-Login requires the user to authenticate with Google. The user’s name/username will
-be included with each sunset post/review they make (see story #3, story #4).
+Login requires the user to authenticate with Google. The user's name will not ever be displayed as they can choose
+any username when they post. (see story #3, story #4).
 
