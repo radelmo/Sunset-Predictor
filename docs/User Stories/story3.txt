@@ -1,5 +1,8 @@
 3: POSTING A SUNSET/RISE PICTURE AND RATING-
-Once the user has found a sunset, they will have the ability to create a post. They can enter a screen name of their choice as well as the location and date of the sunset. They have the option to upload a photo and write about whether the sunset matched the apps rating.
+
+Once the user has found a sunset, they can create a post about it. 
+Once on the post page, they can enter a screen name of their choice as well as the location and date of the sunset. 
+They have the option to upload a photo and write about whether the sunset matched the given prediction.
 
 
 
